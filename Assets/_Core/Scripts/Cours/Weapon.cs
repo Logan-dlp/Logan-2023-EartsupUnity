@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new_Weapons", menuName = "Projects/Weapon")]
+[CreateAssetMenu(fileName = "new_Weapon", menuName = "Projects/Weapon")]
 public class Weapon : ScriptableObject
 {
     [SerializeField] private int _damageValue = 10;

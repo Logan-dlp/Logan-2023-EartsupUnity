@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class ScriptableObjectInstanciate : MonoBehaviour
 {
-    [SerializeField]
-    private ScriptableObject _scriptableObjectToInstanciate;
+    [SerializeField] private ScriptableObject _scriptableObjectToInstanciate;
     private ScriptableObject ScriptableObjectToInstanciate => _scriptableObjectToInstanciate;
 
     private void Start()
