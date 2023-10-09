@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 1880700972}
   - component: {fileID: 1880700971}
   m_Layer: 0
-  m_Name: CardObjectInstanciator
+  m_Name: CardInstanciator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
