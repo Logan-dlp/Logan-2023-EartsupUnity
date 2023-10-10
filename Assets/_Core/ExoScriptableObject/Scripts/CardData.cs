@@ -6,9 +6,9 @@ using UnityEngine;
 public enum Sign
 {
     Heart,
-    Tile,
-    Clover,
-    Pike,
+    Diamond,
+    Club,
+    Spade,
 }
 
 public enum Value
