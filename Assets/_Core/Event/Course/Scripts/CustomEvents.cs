@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomEvent : MonoBehaviour
+public class CustomEvents : MonoBehaviour
 {
     private Action<int> _customAction;
 

@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class HealthBar : MonoBehaviour
+public class Health_Bar : MonoBehaviour
 {
-    [SerializeField] private CharacterBehaviour _character;
+    [SerializeField] private Character _character;
 
     private Image _image;
 
