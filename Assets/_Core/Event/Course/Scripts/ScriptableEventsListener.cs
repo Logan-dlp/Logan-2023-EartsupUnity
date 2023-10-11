@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ScriptableEventListener : MonoBehaviour
+[DefaultExecutionOrder(-1)]
+public class ScriptableEventsListener : MonoBehaviour
 {
-    [SerializeField] private ScriptableEvent _scriptableEvent;
+    [SerializeField] private ScriptableEvents scriptableEvents;
 
     [SerializeField] private UnityEvent _callbacks;
 
     private void Awake()
     {
-        _scriptableEvent.Event += InvokeEvent;
+        scriptableEvents.Event += InvokeEvent;
     }
 
     private void InvokeEvent()

@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterBehaviour : MonoBehaviour
+public class Character : MonoBehaviour
 {
     public Action<int> HealthChanged;
     
     private int _health = 100;
 
-    [SerializeField] private ScriptableEvent _onEnableEvent;
+    [SerializeField] private ScriptableEvents onEnableEvents;
 
     private int Health
     {
@@ -38,6 +38,6 @@ public class CharacterBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        _onEnableEvent.Event.Invoke();
+        onEnableEvents.Event.Invoke();
     }
 }
