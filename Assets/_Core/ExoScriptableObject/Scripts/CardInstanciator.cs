@@ -1,69 +1,68 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class CardInstanciator : MonoBehaviour
 {
-    private List<CardData> _deckList;
+    [SerializeField] private List<CardData> _deckList;
+    private List<CardData> _playerDeckList;
 
     private void Start()
     {
-        DrawCards(7);
-        DisplayDeck();
+        if (_deckList.Count == 0 || _deckList == null)
+        {
+            Debug.LogError("You have not create asset Card !");
+        }
+        else
+        {
+            DrawCards();
+            DisplayDeck();
+        }
     }
 
-    private void DrawCards(int numberCardDrawn)
+    
+    private void DrawCards()
     {
-        _deckList = new List<CardData>();
-        while (_deckList.Count < numberCardDrawn)
+        for (int i = 0; i < 7; i++)
         {
-            CardData newCardData = GenerateCard();
-            foreach (CardData cardItem in _deckList)
-            {
-                if (cardItem.CardValue == newCardData.CardValue && cardItem.CardSign == newCardData.CardSign)
-                {
-                    return;
-                }
-            }
-            _deckList.Add(newCardData);
+            int randomInt = Random.Range(0, _deckList.Count);
+            _playerDeckList.Add(_deckList[randomInt]);
+            _deckList.RemoveAt(randomInt);
         }
     }
     
     private void DisplayDeck()
     {
-        foreach (CardData cardItem in _deckList)
+        foreach (CardData cardItem in _playerDeckList)
         {
             Debug.Log(cardItem.CardValue.ToString() + " " + cardItem.CardSign.ToString());
         }
     }
-
-    private CardData GenerateCard()
-    {
-        CardData newCardItem = CardData.CreateInstance<CardData>();
-        newCardItem.CardValue = (Value)Random.Range(0, Enum.GetValues(typeof(Value)).Length);
-        newCardItem.CardSign = (Sign)Random.Range(0, Enum.GetValues(typeof(Sign)).Length);
-        return newCardItem;
-    }
-
+    
     [ContextMenu("Create Asset From Deck")]
     private void CreateAssetFromDeck()
     {
-        if (_deckList != null)
-        {
-            AssetDatabase.DeleteAsset("Assets/_Core/ExoScriptableObject/SciptableObject_Data");
-            AssetDatabase.CreateFolder("Assets/_Core/ExoScriptableObject", "SciptableObject_Data");
-            AssetDatabase.Refresh();
-            foreach (CardData cardItem in _deckList)
+        AssetDatabase.DeleteAsset("Assets/_Core/ExoScriptableObject/ScriptableObject_Data");
+        AssetDatabase.CreateFolder("Assets/_Core/ExoScriptableObject", "ScriptableObject_Data");
+        AssetDatabase.Refresh();
+        _deckList = new List<CardData>();
+        
+        for (int i = 0; i < Enum.GetValues(typeof(Value)).Length; i++)
+        { 
+            for (int j = 0; j < Enum.GetValues(typeof(Sign)).Length; j++)
             {
-                AssetDatabase.CreateAsset(cardItem, "Assets/_Core/ExoScriptableObject/SciptableObject_Data/" + cardItem.CardValue.ToString() + "_" + cardItem.CardSign.ToString() + ".asset");
+                CardData newCardAssetInstance = CardData.CreateInstance<CardData>();
+                newCardAssetInstance.CardValue = (Value)i;
+                newCardAssetInstance.CardSign = (Sign)j;
+                
+                _deckList.Add(newCardAssetInstance);
+                
+                AssetDatabase.CreateAsset(newCardAssetInstance, "Assets/_Core/ExoScriptableObject/ScriptableObject_Data/" + newCardAssetInstance.CardValue.ToString() + "_" + newCardAssetInstance.CardSign.ToString() + ".asset");
             }
-        }
-        else
-        {
-            Debug.LogError("You did not draw your 7 cards !");
         }
     }
 }
