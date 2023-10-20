@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private ScriptableEventInt _scriptableEventInt;
@@ -19,8 +20,8 @@ public class HealthBar : MonoBehaviour
         _scriptableEventInt.Event += HealthChanged;
     }
 
-    private void HealthChanged(int newHealth)
+    private void HealthChanged(float newHealth)
     {
-        _image.fillAmount = (float)newHealth * .01f;
+        _image.fillAmount = newHealth * .01f;
     }
 }

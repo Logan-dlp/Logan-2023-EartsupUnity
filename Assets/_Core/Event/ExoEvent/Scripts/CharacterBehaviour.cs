@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class CharacterBehaviour : MonoBehaviour
 {
-    private int _health = 100;
+    private int _healthInt = 100;
     
     [SerializeField] private ScriptableEventInt _scriptableEventInt;
 
     private void Start()
     {
-        _scriptableEventInt.Event?.Invoke(_health);
+        _scriptableEventInt.Event?.Invoke(_healthInt);
     }
 
     private void Update()
@@ -25,10 +25,10 @@ public class CharacterBehaviour : MonoBehaviour
 
     public void LoseHealth()
     {
-        if (_health > 0)
+        if (_healthInt > 0)
         {
-            _health -= 10;
-            _scriptableEventInt.Event?.Invoke(_health);
+            _healthInt -= 10;
+            _scriptableEventInt.Event?.Invoke(_healthInt);
         }
     }
 }
