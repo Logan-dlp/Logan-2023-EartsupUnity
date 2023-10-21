@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class CardInstanciator : MonoBehaviour
 {
     [SerializeField] private List<CardData> _deckList;
-    private List<CardData> _playerDeckList;
+    private List<CardData> _playerDeckList = new List<CardData>();
 
     private void Start()
     {
