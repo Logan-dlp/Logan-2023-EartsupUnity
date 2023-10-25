@@ -6,13 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class CharacterBehaviour : MonoBehaviour
 {
-    private int _healthInt = 100;
+    private int _healthValue = 100;
     
     [SerializeField] private ScriptableEventInt _scriptableEventInt;
 
     private void Start()
     {
-        _scriptableEventInt.Event?.Invoke(_healthInt);
+        _scriptableEventInt.Event?.Invoke(_healthValue);
     }
 
     private void Update()
@@ -25,10 +25,10 @@ public class CharacterBehaviour : MonoBehaviour
 
     public void LoseHealth()
     {
-        if (_healthInt > 0)
+        if (_healthValue > 0)
         {
-            _healthInt -= 10;
-            _scriptableEventInt.Event?.Invoke(_healthInt);
+            _healthValue -= 10;
+            _scriptableEventInt.Event?.Invoke(_healthValue);
         }
     }
 }

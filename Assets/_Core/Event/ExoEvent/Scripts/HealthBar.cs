@@ -20,7 +20,7 @@ public class HealthBar : MonoBehaviour
         _scriptableEventInt.Event += HealthChanged;
     }
 
-    private void HealthChanged(float newHealth)
+    private void HealthChanged(int newHealth)
     {
         _image.fillAmount = newHealth * .01f;
     }
