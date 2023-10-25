@@ -6,5 +6,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new_" + nameof(ScriptableEventInt), menuName = "ExoEvent/ScriptableEventInt")]
 public class ScriptableEventInt : ScriptableObject
 {
-    public Action<float> Event;
+    public Action<int> Event;
 }
