@@ -13,15 +13,9 @@ public class CardInstanciator : MonoBehaviour
 
     private void Start()
     {
-        if (_deckList.Count == 0 || _deckList == null)
-        {
-            Debug.LogError("You have not create asset Card !");
-        }
-        else
-        {
-            DrawCards();
-            DisplayDeck();
-        }
+        CreateAssetFromDeck();
+        DrawCards();
+        DisplayDeck();
     }
 
     
@@ -48,6 +42,12 @@ public class CardInstanciator : MonoBehaviour
     {
         AssetDatabase.DeleteAsset("Assets/_Core/ExoScriptableObject/ScriptableObject_Data");
         AssetDatabase.CreateFolder("Assets/_Core/ExoScriptableObject", "ScriptableObject_Data");
+
+        foreach (object nameFolderObject in Enum.GetValues(typeof(Sign)))
+        {
+            AssetDatabase.CreateFolder("Assets/_Core/ExoScriptableObject/ScriptableObject_Data", nameFolderObject.ToString() + "s");
+        }
+        
         AssetDatabase.Refresh();
         _deckList = new List<CardData>();
         
@@ -61,7 +61,7 @@ public class CardInstanciator : MonoBehaviour
                 
                 _deckList.Add(newCardAssetInstance);
                 
-                AssetDatabase.CreateAsset(newCardAssetInstance, "Assets/_Core/ExoScriptableObject/ScriptableObject_Data/" + newCardAssetInstance.CardValue.ToString() + "_" + newCardAssetInstance.CardSign.ToString() + ".asset");
+                AssetDatabase.CreateAsset(newCardAssetInstance, "Assets/_Core/ExoScriptableObject/ScriptableObject_Data/" + newCardAssetInstance.CardSign.ToString() + "s/" + newCardAssetInstance.CardValue.ToString() + "_" + newCardAssetInstance.CardSign.ToString() + ".asset");
             }
         }
     }
