@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class CardInstanciator : MonoBehaviour
 {
@@ -23,7 +20,7 @@ public class CardInstanciator : MonoBehaviour
     {
         for (int i = 0; i < 7; i++)
         {
-            int randomInt = Random.Range(0, _deckList.Count);
+            int randomInt = UnityEngine.Random.Range(0, _deckList.Count);
             _playerDeckList.Add(_deckList[randomInt]);
             _deckList.RemoveAt(randomInt);
         }
