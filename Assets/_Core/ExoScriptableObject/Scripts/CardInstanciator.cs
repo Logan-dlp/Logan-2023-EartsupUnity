@@ -8,7 +8,7 @@ public class CardInstanciator : MonoBehaviour
     [SerializeField] private List<CardData> _deckList;
     private List<CardData> _playerDeckList = new List<CardData>();
 
-    private void OnEnable()
+    private void Awake()
     {
         CreateAssetFromDeck();
     }
@@ -18,7 +18,6 @@ public class CardInstanciator : MonoBehaviour
         DrawCards();
         DisplayDeck();
     }
-
     
     private void DrawCards()
     {
@@ -41,28 +40,30 @@ public class CardInstanciator : MonoBehaviour
     [ContextMenu("Create Asset From Deck")]
     private void CreateAssetFromDeck()
     {
-        AssetDatabase.DeleteAsset("Assets/_Core/ExoScriptableObject/ScriptableObject_Data");
-        AssetDatabase.CreateFolder("Assets/_Core/ExoScriptableObject", "ScriptableObject_Data");
-
-        foreach (object nameFolderObject in Enum.GetValues(typeof(Sign)))
-        {
-            AssetDatabase.CreateFolder("Assets/_Core/ExoScriptableObject/ScriptableObject_Data", nameFolderObject.ToString() + "s");
-        }
+        string path = "Assets/_Core/ExoScriptableObject";
+        string folderName = "ScriptableObject_Data";
         
+        AssetDatabase.DeleteAsset(path + "/" + folderName);
+        AssetDatabase.CreateFolder(path, folderName);
         AssetDatabase.Refresh();
         _deckList = new List<CardData>();
+
+        foreach (object sign in Enum.GetValues(typeof(Sign)))
+        {
+            AssetDatabase.CreateFolder(path + "/" + folderName, sign.ToString() + "s");
+            AssetDatabase.Refresh();
+        }
         
-        for (int i = 0; i < Enum.GetValues(typeof(Value)).Length; i++)
+        for (int i = 0; i < Enum.GetValues(typeof(Sign)).Length; i++)
         { 
-            for (int j = 0; j < Enum.GetValues(typeof(Sign)).Length; j++)
+            for (int j = 0; j < Enum.GetValues(typeof(Value)).Length; j++)
             {
                 CardData newCardAssetInstance = CardData.CreateInstance<CardData>();
-                newCardAssetInstance.CardValue = (Value)i;
-                newCardAssetInstance.CardSign = (Sign)j;
-                
+                newCardAssetInstance.CardValue = (Value)j;
+                newCardAssetInstance.CardSign = (Sign)i;
                 _deckList.Add(newCardAssetInstance);
                 
-                AssetDatabase.CreateAsset(newCardAssetInstance, "Assets/_Core/ExoScriptableObject/ScriptableObject_Data/" + newCardAssetInstance.CardSign.ToString() + "s/" + newCardAssetInstance.CardValue.ToString() + "_" + newCardAssetInstance.CardSign.ToString() + ".asset");
+                AssetDatabase.CreateAsset(newCardAssetInstance, path + "/" + folderName + "/" + newCardAssetInstance.CardSign.ToString() + "s/" + newCardAssetInstance.CardValue.ToString() + "_" + newCardAssetInstance.CardSign.ToString() + ".asset");
             }
         }
     }
