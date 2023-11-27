@@ -7,9 +7,9 @@ public class ScrollNavigationSystem : MonoBehaviour
 {
     private GameObject _selectedGameObject;
     private ScrollRect _scrollRectInventory;
-    [SerializeField] private RectTransform _contentParent;
+    [SerializeField] private RectTransform _contentParentRectTransform;
 
-    private void Start()
+    private void Awake()
     {
         _scrollRectInventory = GetComponent<ScrollRect>();
     }
@@ -18,10 +18,12 @@ public class ScrollNavigationSystem : MonoBehaviour
     {
         _selectedGameObject = EventSystem.current.currentSelectedGameObject;
 
-        if (_selectedGameObject.transform.IsChildOf(_contentParent))
+        if (_selectedGameObject.transform.IsChildOf(_contentParentRectTransform))
         {
-            _scrollRectInventory.verticalNormalizedPosition = 1 - (float)_selectedGameObject.transform.GetSiblingIndex() /
-                                                          (_contentParent.transform.childCount - 1);
+            float selectedIndexFromParent = _selectedGameObject.transform.GetSiblingIndex();
+            float childCountParent = _contentParentRectTransform.transform.childCount;
+
+            _scrollRectInventory.verticalNormalizedPosition = 1 - selectedIndexFromParent / (childCountParent - 1);
         }
     }
 }
