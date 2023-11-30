@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "new_" + nameof(ScriptableInput), menuName = "Inputs/Scriptable Input")]
-public class ScriptableInput : ScriptableObject
+[CreateAssetMenu(fileName = "new_" + nameof(ScriptableInputSystem), menuName = "Inputs/Scriptable Input system")]
+public class ScriptableInputSystem : ScriptableObject
 {
     public Action OnPerformed;
 

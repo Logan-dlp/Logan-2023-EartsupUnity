@@ -2,19 +2,19 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ScriptableInputListner : MonoBehaviour
+public class ScriptableInputSystemListner : MonoBehaviour
 {
-    [SerializeField] private ScriptableInput _scriptableInput;
+    [SerializeField] private ScriptableInputSystem scriptableInputSystem;
     [SerializeField] private UnityEvent _callbacks;
     
     private void OnEnable()
     {
-        _scriptableInput.OnPerformed += InvokeEvents;
+        scriptableInputSystem.OnPerformed += InvokeEvents;
     }
 
     private void OnDisable()
     {
-        _scriptableInput.OnPerformed -= InvokeEvents;
+        scriptableInputSystem.OnPerformed -= InvokeEvents;
     }
 
     private void InvokeEvents()
