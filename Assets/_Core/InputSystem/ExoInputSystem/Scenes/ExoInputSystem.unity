@@ -475,6 +475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e4660c58ad3e045b8ad3ef7150854e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speedMovement: 4
+  _speedRotation: 100
   _fireCharge: {fileID: 5846718108425245244, guid: 72656ecb3b5e19047a1dfa1a65d1badb,
     type: 3}
 --- !u!114 &1187081652
@@ -655,7 +657,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1187081650}
         m_TargetAssemblyTypeName: PlayerBehaviour, Assembly-CSharp
-        m_MethodName: Mouvement
+        m_MethodName: SetAxisMouvement
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
