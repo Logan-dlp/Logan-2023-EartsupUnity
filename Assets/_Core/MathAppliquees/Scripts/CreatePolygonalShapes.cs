@@ -7,10 +7,12 @@ using Color = UnityEngine.Color;
 
 public class CreatePolygonalShapes : MonoBehaviour
 {
-    [SerializeField] private int _polygonalPointNumber;
+    [SerializeField, Range(2, 10)] private int _polygonalPointNumber;
 
     private void OnDrawGizmos()
     {
+        Handles.color = Color.green;
+        Vector2[] polygonalPointArray = new Vector2[_polygonalPointNumber];
         
         for (int i = 0; i < _polygonalPointNumber; i++)
         {
@@ -18,13 +20,18 @@ public class CreatePolygonalShapes : MonoBehaviour
             float angle = tau / _polygonalPointNumber;
             angle *= i + 1;
             
-            float x = 1 * Mathf.Cos(angle);
-            float y = 1 * Mathf.Sin(angle);
+            float x = 1 * Mathf.Cos(angle) + transform.position.x;
+            float y = 1 * Mathf.Sin(angle) + transform.position.y;
             Vector2 newPoint = new Vector2(x, y);
-            Handles.color = Color.green;
-            Handles.DrawLine(transform.position, (Vector3)newPoint);
+            polygonalPointArray[i] = newPoint;
         }
-        Handles.color = Color.blue;
-        Handles.DrawWireDisc(transform.position, transform.forward, 1);
+        
+        Handles.DrawLine(polygonalPointArray[polygonalPointArray.Length - 1], polygonalPointArray[0]);
+
+        for (int i = 1; i < polygonalPointArray.Length; i++)
+        {
+            Handles.DrawLine(polygonalPointArray[i-1], polygonalPointArray[i]);
+        }
+        
     }
 }
