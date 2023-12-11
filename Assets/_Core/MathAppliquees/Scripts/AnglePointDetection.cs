@@ -6,7 +6,7 @@ public class AnglePointDetection : MonoBehaviour
 {
     [SerializeField] private Transform _pointDetection;
     [SerializeField, Range(0, 10)] private float _radiusDetection;
-    [SerializeField, Range(0, 1)] private float _viewAngle;
+    [SerializeField, Range(0, 180)] private float _viewAngle;
     
     private void OnDrawGizmos()
     {
@@ -14,7 +14,7 @@ public class AnglePointDetection : MonoBehaviour
         
         if (distance.sqrMagnitude < _radiusDetection * _radiusDetection)
         {
-            if (Vector3.Dot(distance.normalized, transform.right) >= _viewAngle)
+            if (-Vector3.Dot(distance.normalized, transform.right) <= (_viewAngle - 180) / 180)
             {
                 Handles.color = Color.green;
             }
