@@ -5,9 +5,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ScrollRect))]
 public class ScrollNavigationSystem : MonoBehaviour
 {
+    [SerializeField] private RectTransform _contentParentRectTransform;
     private GameObject _selectedGameObject;
     private ScrollRect _scrollRectInventory;
-    [SerializeField] private RectTransform _contentParentRectTransform;
 
     private void Awake()
     {
