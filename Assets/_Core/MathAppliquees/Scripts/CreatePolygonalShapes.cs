@@ -8,6 +8,7 @@ using Color = UnityEngine.Color;
 public class CreatePolygonalShapes : MonoBehaviour
 {
     [SerializeField, Range(2, 10)] private int _polygonalPointNumber;
+    private float _tau = 2 * Mathf.PI;
 
     private void OnDrawGizmos()
     {
@@ -16,8 +17,7 @@ public class CreatePolygonalShapes : MonoBehaviour
         
         for (int i = 0; i < _polygonalPointNumber; i++)
         {
-            float tau = 2 * Mathf.PI;
-            float angle = tau / _polygonalPointNumber;
+            float angle = _tau / _polygonalPointNumber;
             angle *= i + 1;
             
             float x = 1 * Mathf.Cos(angle) + transform.position.x;
@@ -32,6 +32,5 @@ public class CreatePolygonalShapes : MonoBehaviour
         {
             Handles.DrawLine(polygonalPointArray[i-1], polygonalPointArray[i]);
         }
-        
     }
 }
