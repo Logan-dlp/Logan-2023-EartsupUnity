@@ -10,6 +10,7 @@ public class PointDetection : MonoBehaviour
     private void OnDrawGizmos()
     {
         Vector3 distance = _pointTransform.position - transform.position;
+        
         if (distance.sqrMagnitude < _radiusDetection * _radiusDetection)
         {
             Handles.color = Color.green;
