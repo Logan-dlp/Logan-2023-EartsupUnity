@@ -12,7 +12,8 @@ public class InputEventAxisVector2 : ScriptableObject
         if (ctx.performed)
         {
             InputEvent?.Invoke(ctx.ReadValue<Vector2>());
-        }else if (ctx.canceled)
+        }
+        else if (ctx.canceled)
         {
             InputEvent?.Invoke(Vector2.zero);
         }

@@ -9,13 +9,14 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private float _speedMovement = 1;
     [SerializeField] private float _speedRotation = 1;
     [SerializeField] private GameObject _fireCharge;
-    private Vector2 AxisMovement = Vector2.zero;
+    
+    private Vector2 _axisMovement = Vector2.zero;
 
     private void Update()
     {
-        transform.position += transform.up * AxisMovement.y * _speedMovement * Time.deltaTime;
+        transform.position += transform.up * _axisMovement.y * _speedMovement * Time.deltaTime;
         
-        transform.Rotate(-transform.forward * AxisMovement.x * _speedRotation * Time.deltaTime);
+        transform.Rotate(-transform.forward * _axisMovement.x * _speedRotation * Time.deltaTime);
     }
 
     public void Shoot()
@@ -26,7 +27,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetAxisMouvement(Vector2 axis)
     {
-        AxisMovement = axis;
-        Debug.Log(axis);
+        _axisMovement = axis;
     }
 }
