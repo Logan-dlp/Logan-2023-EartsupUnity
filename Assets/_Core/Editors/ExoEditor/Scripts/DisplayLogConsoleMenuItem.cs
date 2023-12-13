@@ -6,12 +6,12 @@ public class DisplayLogConsoleMenuItem
     [MenuItem("Tools/Log Console")]
     static void LogConsole()
     {
-        Debug.Log(Selection.activeObject);
+        Debug.Log(Selection.activeGameObject);
     }
 
     [MenuItem("Tools/Log Console", true)]
     static bool ValidateLogConsole()
     {
-        return Selection.activeObject;
+        return Selection.activeGameObject;
     }
 }
