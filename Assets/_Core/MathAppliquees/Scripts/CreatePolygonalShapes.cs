@@ -8,7 +8,7 @@ using Color = UnityEngine.Color;
 public class CreatePolygonalShapes : MonoBehaviour
 {
     [SerializeField, Range(2, 10)] private int _polygonalPointNumber;
-    private float _tau = 2 * Mathf.PI;
+    private const float _tau = 2 * Mathf.PI;
 
     private void OnDrawGizmos()
     {
