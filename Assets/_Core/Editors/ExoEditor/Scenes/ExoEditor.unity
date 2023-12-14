@@ -170,9 +170,9 @@ MonoBehaviour:
   _stats:
     healthValue: 52
     manaValue: 25
-  _sampleText: 
+  _sampleText: It's good
   _sceneName: EditorCourse
-  _sceneIndex: 1
+  _sceneIndex: 0
 --- !u!1 &1279010968
 GameObject:
   m_ObjectHideFlags: 0
