@@ -7,29 +7,33 @@ public class StatsDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        // property intialize
         SerializedProperty healthProp = property.FindPropertyRelative("healthValue");
         RangeAttribute healthRangeAttribute = typeof(Stats).GetField(nameof(Stats.healthValue)).GetCustomAttribute<RangeAttribute>();
-        
-        EditorGUI.PropertyField(new Rect(1, EditorGUIUtility.singleLineHeight * 2, position.width, 20), healthProp);
-        
-        EditorGUI.ProgressBar(new Rect(5, EditorGUIUtility.singleLineHeight * 3, position.width - 6, 15),
-            healthProp.intValue / healthRangeAttribute.max,
-            "Health " + "(" + healthProp.intValue + "/" + healthRangeAttribute.max + ")");
         
         SerializedProperty manaProp = property.FindPropertyRelative("manaValue");
         RangeAttribute manaRangeAttribute = typeof(Stats).GetField(nameof(Stats.manaValue)).GetCustomAttribute<RangeAttribute>();
         
-        EditorGUI.PropertyField(new Rect(1, EditorGUIUtility.singleLineHeight * 4, position.width, 20), manaProp);
+        // property displayed
+        Rect propertyPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+        EditorGUI.PropertyField(propertyPosition, healthProp);
         
-        EditorGUI.ProgressBar(new Rect(5, EditorGUIUtility.singleLineHeight * 5, position.width - 6, 15), 
+        propertyPosition = new Rect(propertyPosition.x, propertyPosition.y + EditorGUIUtility.singleLineHeight, propertyPosition.width, propertyPosition.height);
+        EditorGUI.ProgressBar(propertyPosition,
+            healthProp.intValue / healthRangeAttribute.max,
+            "Health " + "(" + healthProp.intValue + "/" + healthRangeAttribute.max + ")");
+        
+        propertyPosition = new Rect(propertyPosition.x, propertyPosition.y + EditorGUIUtility.singleLineHeight, propertyPosition.width, propertyPosition.height);
+        EditorGUI.PropertyField(propertyPosition, manaProp);
+        
+        propertyPosition = new Rect(propertyPosition.x, propertyPosition.y + EditorGUIUtility.singleLineHeight, propertyPosition.width, propertyPosition.height);
+        EditorGUI.ProgressBar(propertyPosition, 
             manaProp.intValue / manaRangeAttribute.max, 
             "Mana " + "(" + manaProp.intValue + "/" + manaRangeAttribute.max + ")");
-            
-        position.y += EditorGUIUtility.singleLineHeight;
     }
-
+    
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return EditorGUIUtility.singleLineHeight * 5;
+        return EditorGUIUtility.singleLineHeight * 4;
     }
 }

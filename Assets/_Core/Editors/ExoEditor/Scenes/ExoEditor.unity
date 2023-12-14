@@ -168,11 +168,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats:
-    healthValue: 60
-    manaValue: 21
+    healthValue: 52
+    manaValue: 25
   _sampleText: 
   _sceneName: EditorCourse
-  _sceneIndex: 0
+  _sceneIndex: 1
 --- !u!1 &1279010968
 GameObject:
   m_ObjectHideFlags: 0
