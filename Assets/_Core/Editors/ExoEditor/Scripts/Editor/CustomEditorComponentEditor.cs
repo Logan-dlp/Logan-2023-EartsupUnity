@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,7 +16,7 @@ public class CustomEditorComponentEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        base.OnInspectorGUI();
 
         using (new EditorGUILayout.HorizontalScope())
         {
@@ -26,7 +25,6 @@ public class CustomEditorComponentEditor : Editor
                 sceneIndexProp.intValue--;
                 SceneManager.GetSceneByBuildIndex(sceneIndexProp.intValue);
             }
-
             if (GUILayout.Button("+1"))
             {
                 sceneIndexProp.intValue++;
