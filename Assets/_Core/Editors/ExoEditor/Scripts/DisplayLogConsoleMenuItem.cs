@@ -12,6 +12,13 @@ public class DisplayLogConsoleMenuItem
     [MenuItem("Tools/Log Console", true)]
     static bool ValidateLogConsole()
     {
-        return Selection.activeGameObject;
+        if (Selection.activeGameObject)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
