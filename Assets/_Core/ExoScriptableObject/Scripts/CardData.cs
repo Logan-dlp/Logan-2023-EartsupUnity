@@ -25,7 +25,7 @@ public enum Value
     King,
 }
 
-[CreateAssetMenu(fileName = "new_cardData", menuName = "ExoSciptableObject/card")]
+[CreateAssetMenu(fileName = "new_" + nameof(CardData), menuName = "ExoSciptableObject/Card Data")]
 public class CardData : ScriptableObject
 {
     [SerializeField] private Value _cardValue;

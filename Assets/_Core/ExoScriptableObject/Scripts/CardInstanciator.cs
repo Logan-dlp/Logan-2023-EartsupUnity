@@ -5,18 +5,27 @@ using UnityEngine;
 
 public class CardInstanciator : MonoBehaviour
 {
-    [SerializeField] private List<CardData> _deckList;
-    private List<CardData> _playerDeckList = new List<CardData>();
+    [SerializeField] private DeckData _deckData;
 
-    private void Awake()
-    {
-        CreateAssetFromDeck();
-    }
+    private List<CardData> _deckList = new List<CardData>();
+    private List<CardData> _deckToDisplayList = new List<CardData>();
 
     private void Start()
     {
+        if (_deckData == null)
+        {
+            Debug.LogError("You have not DeckData !");
+            return;
+        }
+        _deckList = _deckData.CardDataList;
+        if (_deckList.Count == 0)
+        {
+            Debug.LogError("Asset is not create in DeckData !");
+            return;
+        }
+        
         DrawCards();
-        DisplayDeck();
+        DisplayCardDataList(_deckToDisplayList);
     }
     
     private void DrawCards()
@@ -24,47 +33,16 @@ public class CardInstanciator : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             int randomInt = UnityEngine.Random.Range(0, _deckList.Count);
-            _playerDeckList.Add(_deckList[randomInt]);
+            _deckToDisplayList.Add(_deckList[randomInt]);
             _deckList.RemoveAt(randomInt);
         }
     }
-    
-    private void DisplayDeck()
+
+    private void DisplayCardDataList(List<CardData> cardDataList)
     {
-        foreach (CardData cardItem in _playerDeckList)
+        foreach (CardData cardItem in cardDataList)
         {
             Debug.Log(cardItem.CardValue.ToString() + " " + cardItem.CardSign.ToString());
-        }
-    }
-    
-    [ContextMenu("Create Asset From Deck")]
-    private void CreateAssetFromDeck()
-    {
-        string path = "Assets/_Core/ExoScriptableObject";
-        string folderName = "ScriptableObject_Data";
-        
-        AssetDatabase.DeleteAsset(path + "/" + folderName);
-        AssetDatabase.CreateFolder(path, folderName);
-        AssetDatabase.Refresh();
-        _deckList = new List<CardData>();
-
-        foreach (object sign in Enum.GetValues(typeof(Sign)))
-        {
-            AssetDatabase.CreateFolder(path + "/" + folderName, sign.ToString() + "s");
-            AssetDatabase.Refresh();
-        }
-        
-        for (int i = 0; i < Enum.GetValues(typeof(Sign)).Length; i++)
-        { 
-            for (int j = 0; j < Enum.GetValues(typeof(Value)).Length; j++)
-            {
-                CardData newCardAssetInstance = CardData.CreateInstance<CardData>();
-                newCardAssetInstance.CardValue = (Value)j;
-                newCardAssetInstance.CardSign = (Sign)i;
-                _deckList.Add(newCardAssetInstance);
-                
-                AssetDatabase.CreateAsset(newCardAssetInstance, path + "/" + folderName + "/" + newCardAssetInstance.CardSign.ToString() + "s/" + newCardAssetInstance.CardValue.ToString() + "_" + newCardAssetInstance.CardSign.ToString() + ".asset");
-            }
         }
     }
 }

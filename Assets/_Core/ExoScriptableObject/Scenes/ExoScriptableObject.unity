@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4130da2e64161d34f9aab7b551b23826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deckList: []
+  _deckData: {fileID: 11400000, guid: 23732e1e682cbda48806a2cc5e9af005, type: 2}
 --- !u!4 &1880700972
 Transform:
   m_ObjectHideFlags: 0
