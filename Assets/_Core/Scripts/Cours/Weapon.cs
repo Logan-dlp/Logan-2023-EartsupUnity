@@ -12,12 +12,12 @@ public class Weapon : ScriptableObject
 
     private void Awake()
     {
-        Debug.Log("Weapon::Awake");
+        // Debug.Log("Weapon::Awake");
     }
 
     private void OnEnable()
     {
-        Debug.Log("Weapon::OnEnable");
+        // Debug.Log("Weapon::OnEnable");
 
         _damageValue += 10;
     }
