@@ -41,6 +41,7 @@ Shader "ExoShader/Sphere"
                 float4 positionOS   : POSITION;
 
                 float2 uv           : TEXCOORD0;
+                half4 color         : COLOR;
             };
 
             struct Varyings
@@ -49,6 +50,7 @@ Shader "ExoShader/Sphere"
                 float4 positionHCS  : SV_POSITION;
 
                 float2 uv           : TEXCOORD0;
+                half4 color        : COLOR;
             };
 
             TEXTURE2D(_MainTex);
@@ -73,6 +75,7 @@ Shader "ExoShader/Sphere"
                 // Returning the output.
 
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+                OUT.color = IN.color;
 
                 
                 return OUT;
@@ -83,8 +86,10 @@ Shader "ExoShader/Sphere"
             {
                 half4 textureColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
                 half4 invertTextureColor = 1 - textureColor;
+
+                half4 color = IN.color + (_BuffColor - IN.color) * _BuffPower;
                 
-                textureColor = lerp(textureColor, invertTextureColor, _BuffPower) + (_BuffColor * _BuffPower);
+                textureColor = lerp(textureColor, invertTextureColor, _BuffPower) + color;
                 
                 return textureColor;
             }
