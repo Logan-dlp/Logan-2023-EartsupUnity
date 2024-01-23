@@ -64,10 +64,9 @@ Shader "ExoShader/Bubule"
                 Varyings OUT;
                 // The TransformObjectToHClip function transforms vertex positions
                 // from object space to homogenous clip space.
-
+                
                 float1 lerpFactor = .5 +.5 * sin(_Time.y * _Displacement);
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz * lerp(1, 2, lerpFactor));
-                
                 
                 // Returning the output.
                 return OUT;
@@ -76,7 +75,6 @@ Shader "ExoShader/Bubule"
             // The fragment shader definition.
             half4 frag(Varyings IN) : SV_Target
             {
-
                 float1 lerpFactor = .5 + .5 * sin(_Time.y * _FlashFrequency);
                 half4 color = _MainColor + (_FlashColor - _MainColor) * lerpFactor;
 

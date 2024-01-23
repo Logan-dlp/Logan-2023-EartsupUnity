@@ -39,7 +39,6 @@ Shader "ExoShader/Sphere"
                 // The positionOS variable contains the vertex positions in object
                 // space.
                 float4 positionOS   : POSITION;
-
                 float2 uv           : TEXCOORD0;
                 half4 color         : COLOR;
             };
@@ -48,7 +47,6 @@ Shader "ExoShader/Sphere"
             {
                 // The positions in this struct must have the SV_POSITION semantic.
                 float4 positionHCS  : SV_POSITION;
-
                 float2 uv           : TEXCOORD0;
                 half4 color        : COLOR;
             };
@@ -76,7 +74,6 @@ Shader "ExoShader/Sphere"
 
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
                 OUT.color = IN.color;
-
                 
                 return OUT;
             }
@@ -86,7 +83,6 @@ Shader "ExoShader/Sphere"
             {
                 half4 textureColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
                 half4 invertTextureColor = 1 - textureColor;
-
                 half4 color = IN.color + (_BuffColor - IN.color) * _BuffPower;
                 
                 textureColor = lerp(textureColor, invertTextureColor, _BuffPower) + color;
