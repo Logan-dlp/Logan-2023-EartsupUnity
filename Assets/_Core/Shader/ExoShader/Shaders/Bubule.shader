@@ -6,7 +6,7 @@ Shader "ExoShader/Bubule"
     Properties
     {
         _MainColor("Main Color", Color) = (1, 1, 1, 1)
-        _FlashColor("Flash Color", Color) = (0, 0, 0, 1)
+        [HDR] _FlashColor("Flash Color", Color) = (0, 0, 0, 1)
         _FlashFrequency("Flash Frequency", float) = 1
         _Displacement("Displacement", float) = 1
     }
@@ -76,7 +76,9 @@ Shader "ExoShader/Bubule"
             // The fragment shader definition.
             half4 frag(Varyings IN) : SV_Target
             {
-                half4 color = _MainColor;
+
+                float1 lerpFactor = .5 + .5 * sin(_Time.y * _FlashFrequency);
+                half4 color = _MainColor + (_FlashColor - _MainColor) * lerpFactor;
 
                 return color;
             }

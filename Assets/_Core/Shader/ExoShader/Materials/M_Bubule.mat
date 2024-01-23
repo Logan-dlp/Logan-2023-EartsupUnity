@@ -30,8 +30,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Displacement: 2
-    - _FlashFrequency: 1
+    - _FlashFrequency: 2
     m_Colors:
-    - _FlashColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FlashColor: {r: 0.18064928, g: 1, b: 0, a: 1}
+    - _MainColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
