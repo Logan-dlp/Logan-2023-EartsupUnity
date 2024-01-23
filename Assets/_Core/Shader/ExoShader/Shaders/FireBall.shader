@@ -68,9 +68,7 @@ Shader "ExoShader/FireBall"
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
 
                 // Movement to bottom
-                float2 uv = OUT.uv;
-                uv.y = uv.y + _Time.y * .1;
-                OUT.uv.y = uv.y;
+                OUT.uv.y = OUT.uv.y + _Time.x;
                 
                 return OUT;
             }
