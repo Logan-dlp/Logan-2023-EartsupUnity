@@ -5,6 +5,10 @@ Shader "ExoShader/FireBall"
     Properties
     { 
         [MainTexture] _MainTex("Main Texture", 2D) = "white" {}
+        [HDR] _FireColor1("Fire Color 1", Color) = (1, 0, 0, 1)
+        [HDR] _FireColor2("Fire Color 2", Color) = (1, 1, 0, 1)
+        [HDR] _RimColor("Rim Color", Color) = (1, 1, 0, 1)
+        _FresnelPower("Fresnel Power", Range(0, 10)) = 2.13
     }
 
     // The SubShader block containing the Shader code.
@@ -37,20 +41,27 @@ Shader "ExoShader/FireBall"
                 // space.
                 float4 positionOS   : POSITION;
                 float2 uv           : TEXCOORD0;
+                half3 normal        : NORMAL;
             };
 
             struct Varyings
             {
                 // The positions in this struct must have the SV_POSITION semantic.
                 float4 positionHCS  : SV_POSITION;
+                float3 positionWS   : WS_POSITION;
                 float2 uv           : TEXCOORD0;
+                half3 normal        : NORMAL;
             };
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
 
             CBUFFER_START(UnityPerMaterial)
-                float4 _MainTex_ST;
+                half4 _MainTex_ST;
+                half4 _FireColor1;
+                half4 _FireColor2;
+                half4 _RimColor;
+                float1 _FresnelPower;
             CBUFFER_END
 
             // The vertex shader definition with properties defined in the Varyings
@@ -65,10 +76,13 @@ Shader "ExoShader/FireBall"
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
                 // Returning the output.
 
-                OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+                OUT.positionWS = TransformObjectToWorld(IN.positionOS);
 
+                OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
                 // Movement to bottom
                 OUT.uv.y = OUT.uv.y + _Time.x;
+
+                OUT.normal = IN.normal;
                 
                 return OUT;
             }
@@ -77,8 +91,12 @@ Shader "ExoShader/FireBall"
             half4 frag(Varyings IN) : SV_Target
             {
                 half4 textureColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
+                half4 color = _FireColor1 + _FireColor2 * textureColor;
+
+                float3 viewDirection = GetCameraPositionWS() - IN.positionWS;
+                float1 fresnel = pow(1.0 - saturate(dot(normalize(IN.normal), normalize(viewDirection))), _FresnelPower * 0.1);
                 
-                return textureColor;
+                return (textureColor + color) * (fresnel + _RimColor);
             }
             ENDHLSL
         }

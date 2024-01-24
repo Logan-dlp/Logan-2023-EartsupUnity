@@ -30,6 +30,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _BuffPower: 1
+    - _FresnelPower: 2.18
     m_Colors:
     - _BuffColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FireColor1: {r: 1, g: 0, b: 0, a: 1}
+    - _FireColor2: {r: 1, g: 1, b: 0, a: 1}
+    - _RimColor: {r: 3.9999998, g: 1.185942, b: 0, a: 1}
   m_BuildTextureStacks: []
