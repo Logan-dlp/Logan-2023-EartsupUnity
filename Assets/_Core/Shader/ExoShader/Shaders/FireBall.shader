@@ -91,12 +91,13 @@ Shader "ExoShader/FireBall"
             half4 frag(Varyings IN) : SV_Target
             {
                 half4 textureColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
-                half4 color = _FireColor1 + _FireColor2 * textureColor;
+                half4 color = lerp(_FireColor1, _FireColor2, textureColor);
 
                 float3 viewDirection = GetCameraPositionWS() - IN.positionWS;
-                float1 fresnel = pow(1.0 - saturate(dot(normalize(IN.normal), normalize(viewDirection))), _FresnelPower * 0.1);
+                float1 fresnel = pow(1.0 - saturate(dot(normalize(IN.normal), normalize(viewDirection))), _FresnelPower);
+                half4 fresnelColor = _RimColor + (1 - fresnel) * textureColor;
                 
-                return (textureColor + color) * (fresnel + _RimColor);
+                return color + fresnel * fresnelColor;
             }
             ENDHLSL
         }

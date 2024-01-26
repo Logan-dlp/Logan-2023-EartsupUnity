@@ -33,7 +33,7 @@ Material:
     - _FresnelPower: 2.18
     m_Colors:
     - _BuffColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FireColor1: {r: 1, g: 0, b: 0, a: 1}
-    - _FireColor2: {r: 1, g: 1, b: 0, a: 1}
-    - _RimColor: {r: 3.9999998, g: 1.185942, b: 0, a: 1}
+    - _FireColor1: {r: 0.8148468, g: 0, b: 0.017641952, a: 1}
+    - _FireColor2: {r: 0.98225087, g: 0.5394797, b: 0, a: 1}
+    - _RimColor: {r: 3.1032898, g: 0.7246572, b: 0, a: 1}
   m_BuildTextureStacks: []
