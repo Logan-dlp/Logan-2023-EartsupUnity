@@ -35,8 +35,8 @@ Shader "ExoShader/Bubule"
             CBUFFER_START(UnityPerMaterial)
                 half4 _MainColor;
                 half4 _FlashColor;
-                float1 _FlashFrequency;
-                float1 _Displacement;
+                float _FlashFrequency;
+                float _Displacement;
             CBUFFER_END
 
             // The structure definition defines which variables it contains.
@@ -65,7 +65,7 @@ Shader "ExoShader/Bubule"
                 // The TransformObjectToHClip function transforms vertex positions
                 // from object space to homogenous clip space.
                 
-                float1 lerpFactor = .5 +.5 * sin(_Time.y * _Displacement);
+                float lerpFactor = .5 +.5 * sin(_Time.y * _Displacement);
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz * lerp(1, 2, lerpFactor));
                 
                 // Returning the output.
@@ -75,10 +75,10 @@ Shader "ExoShader/Bubule"
             // The fragment shader definition.
             half4 frag(Varyings IN) : SV_Target
             {
-                float1 lerpFactor = .5 + .5 * sin(_Time.y * _FlashFrequency);
-                half4 color = _MainColor + (_FlashColor - _MainColor) * lerpFactor;
+                float interpolationFactor = .5 + .5 * sin(_Time.y * _FlashFrequency);
+                half4 flashColor = _MainColor + (_FlashColor - _MainColor) * interpolationFactor;
 
-                return color;
+                return flashColor;
             }
             ENDHLSL
         }
