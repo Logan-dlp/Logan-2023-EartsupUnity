@@ -61,7 +61,7 @@ Shader "ExoShader/FireBall"
                 half4 _FireColor1;
                 half4 _FireColor2;
                 half4 _RimColor;
-                float1 _FresnelPower;
+                float _FresnelPower;
             CBUFFER_END
 
             // The vertex shader definition with properties defined in the Varyings
@@ -79,8 +79,6 @@ Shader "ExoShader/FireBall"
                 OUT.positionWS = TransformObjectToWorld(IN.positionOS);
 
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
-                // Movement to bottom
-                OUT.uv.y = OUT.uv.y + _Time.x;
 
                 OUT.normal = IN.normal;
                 
@@ -90,14 +88,14 @@ Shader "ExoShader/FireBall"
             // The fragment shader definition.
             half4 frag(Varyings IN) : SV_Target
             {
-                half4 textureColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
-                half4 color = lerp(_FireColor1, _FireColor2, textureColor);
+                half4 textureColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(0, 1) * _Time.x);
+                textureColor = lerp(_FireColor1, _FireColor2, textureColor);
 
                 float3 viewDirection = GetCameraPositionWS() - IN.positionWS;
-                float1 fresnel = pow(1.0 - saturate(dot(normalize(IN.normal), normalize(viewDirection))), _FresnelPower);
-                half4 fresnelColor = _RimColor + (1 - fresnel) * textureColor;
+                float fresnel = pow(1.0 - saturate(dot(normalize(IN.normal), normalize(viewDirection))), _FresnelPower);
+                half4 fresnelColor = _RimColor + (1 - fresnel);
                 
-                return color + fresnel * fresnelColor;
+                return fresnelColor * textureColor;
             }
             ENDHLSL
         }
