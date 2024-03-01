@@ -57,7 +57,7 @@ Shader "ExoShader/Sphere"
             CBUFFER_START(UnityPerMaterial)
                 float4 _MainTex_ST;
                 half4 _BuffColor;
-                float1 _BuffPower;
+                float _BuffPower;
             CBUFFER_END
 
             // The vertex shader definition with properties defined in the Varyings
@@ -85,7 +85,7 @@ Shader "ExoShader/Sphere"
                 half4 invertTextureColor = 1 - textureColor;
                 half4 color = IN.color + (_BuffColor - IN.color) * _BuffPower;
                 
-                textureColor = lerp(textureColor, invertTextureColor, _BuffPower) + color;
+                textureColor = lerp(textureColor, invertTextureColor, _BuffPower) * color;
                 
                 return textureColor;
             }
