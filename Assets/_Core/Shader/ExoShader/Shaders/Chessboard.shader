@@ -75,8 +75,8 @@ Shader "ExoShader/Chessboard"
             // The fragment shader definition.
             half4 frag(Varyings IN) : SV_Target
             {
-                float1 x = round(frac(IN.uv.x * _RepeatValue));
-                float1 y = round(frac(IN.uv.y * _RepeatValue));
+                float x = round(frac(IN.uv.x * _RepeatValue));
+                float y = round(frac(IN.uv.y * _RepeatValue));
 
                 if (x * .5 + y * .5 == .5)
                 {
