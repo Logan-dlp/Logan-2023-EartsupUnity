@@ -30,7 +30,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BuffPower: 1
-    - _FresnelPower: 1.25
+    - _FresnelPower: 1.18
     m_Colors:
     - _BuffColor: {r: 1, g: 1, b: 1, a: 1}
     - _FireColor1: {r: 0.8148468, g: 0, b: 0.017641952, a: 1}

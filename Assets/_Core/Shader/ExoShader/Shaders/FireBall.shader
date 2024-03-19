@@ -92,7 +92,7 @@ Shader "ExoShader/FireBall"
                 textureColor = lerp(_FireColor1, _FireColor2, textureColor);
 
                 float3 viewDirection = GetCameraPositionWS() - IN.positionWS;
-                float fresnel = pow(1.0 - saturate(dot(normalize(IN.normal), normalize(viewDirection))), _FresnelPower);
+                float fresnel = pow(saturate(dot(normalize(IN.normal), normalize(viewDirection))), _FresnelPower);
                 half4 fresnelColor = _RimColor + (1 - fresnel);
                 
                 return fresnelColor * textureColor;
