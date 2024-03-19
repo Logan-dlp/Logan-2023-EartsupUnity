@@ -65,8 +65,8 @@ Shader "ExoShader/Bubule"
                 // The TransformObjectToHClip function transforms vertex positions
                 // from object space to homogenous clip space.
                 
-                float lerpFactor = .5 +.5 * sin(_Time.y * _Displacement);
-                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz * lerp(1, 2, lerpFactor));
+                float lerpFactor = .5 +.5 * sin(_Time.y * _FlashFrequency);
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz * lerp(1, _Displacement, lerpFactor));
                 
                 // Returning the output.
                 return OUT;
